@@ -1,9 +1,9 @@
 import React from 'react'
 
-const ContactItem = ({name}) => {
+const ContactItem = ({name, number}) => {
 	return (
 		<li className='list-item'>
-			<p>{name}</p>
+			<p>{name}:   {number}</p>
 		</li>
 	)
 }
