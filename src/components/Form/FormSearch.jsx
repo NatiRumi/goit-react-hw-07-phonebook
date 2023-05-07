@@ -34,7 +34,6 @@ const FormSearch = ({filter, onChange}) => {
             />
         </label>
     )
-    console.log(FormSearch)
 }
 
 
