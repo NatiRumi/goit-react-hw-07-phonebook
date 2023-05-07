@@ -1,34 +1,39 @@
 import React from 'react';
-import { Component } from 'react';
+// import { Component } from 'react';
 
-class FormSearch extends Component {
-state = {
-    filter: ''
-}
-
-inputChange = e => {
-    e.preventDefault(); 
-    // console.log(this.state);
-    // console.log(e.currentTarget.value);
-    this.setState({ filter: e.currentTarget.value});
-    // console.log(this.state);
-    this.props.filter(this.state);   
-}
+// class FormSearch extends Component {
 
 
-render() {
+
+// render() {
+//     return(
+//         <label>
+//             Find contacts by name
+//                 <input
+//                 type="text"
+//                 name="filter"
+//                 value={this.props.filter}
+//                 // onChange={this.inputChange}
+//                 />
+//         </label>
+//     )
+// }
+// }
+
+
+const FormSearch = ({filter, onChange}) => {
+    
     return(
-        <label>
+        <label >
             Find contacts by name
-                <input
-                type="text"
-                name="filter"
-                value={this.state.filter}
-                onChange={this.inputChange}
-                />
+            <input
+            type="text"
+            name="filter"
+            // value={filter}
+            onChange={onChange}
+            />
         </label>
     )
-}
 }
 
 
