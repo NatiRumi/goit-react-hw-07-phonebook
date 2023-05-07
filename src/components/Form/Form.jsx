@@ -1,16 +1,18 @@
 import React from 'react';
 import { Component } from 'react';
+import PropTypes from 'prop-types';
+import css from './Form.module.css';
 
 class Form extends Component {
   state = {
     name: '',
-    number: ''
+    number: '',
   };
 
   handleInputChange = e => {
     // console.log(e.currentTarget.value)
     const { name, value } = e.currentTarget;
-    this.setState({ [name]: value })
+    this.setState({ [name]: value });
     // this.setState({ name: e.currentTarget.value });
   };
 
@@ -22,12 +24,12 @@ class Form extends Component {
   };
 
   reset = () => {
-    this.setState({ name: '', number: ''});
+    this.setState({ name: '', number: '' });
   };
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className={css.form}>
         <label>
           Name
           <input
@@ -38,6 +40,7 @@ class Form extends Component {
             required
             value={this.state.name}
             onChange={this.handleInputChange}
+            className={css.formInput}
           />
         </label>
         <label>
@@ -50,12 +53,17 @@ class Form extends Component {
             required
             value={this.state.number}
             onChange={this.handleInputChange}
+            className={css.formInput}
           />
         </label>
-        <button type="submit">Add contact</button>
+        <button className={css.formBtn} type="submit">Add contact</button>
       </form>
     );
   }
 }
 
 export default Form;
+
+Form.propTypes = {
+  onSubmit: PropTypes.func,
+};
