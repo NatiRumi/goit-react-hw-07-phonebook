@@ -54,6 +54,7 @@ class App extends Component {
       contacts: prevstate.contacts.filter(contact => contact.id !== idItem),
     }));
   };
+  
 
   render() {
     return (
