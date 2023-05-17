@@ -10,16 +10,15 @@ function App() {
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
-    const localData = localStorage.getItem('contacts')
-		if (localData) {
-			setContacts(JSON.parse(localData))
-		}
+    const localData = localStorage.getItem('contacts');
+    if (localData) {
+      setContacts(JSON.parse(localData));
+    }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts))
+    localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
-
 
   const addItem = data => {
     let contact = {
@@ -28,24 +27,32 @@ function App() {
       number: data.number,
     };
 
-    const searchArray = contacts.filter(contact => contact.name.toLowerCase() === data.name);
+    const searchArray = contacts.filter(
+      contact => contact.name.toLowerCase() === data.name
+    );
     if (searchArray.length !== 0) {
       alert(`${data.name} is already in contacts`);
       return;
     } else {
-      setContacts(prevState => {return [contact, ...contacts]});
+      setContacts(prevState => {
+        return [contact, ...contacts];
+      });
     }
   };
 
   const filterList = searchText => {
     // console.log(searchText);
     setContacts(
-      contacts.filter(contact =>contact.name.toLowerCase().includes(searchText)),
+      contacts.filter(contact =>
+        contact.name.toLowerCase().includes(searchText)
+      )
     );
   };
 
   const deleteItem = idItem => {
-    setContacts(prevstate => {return contacts.filter(contact => contact.id !== idItem)});
+    setContacts(prevstate => {
+      return contacts.filter(contact => contact.id !== idItem);
+    });
   };
 
   return (
@@ -55,10 +62,7 @@ function App() {
         <Form onSubmit={addItem} />
         <h2>Contacts</h2>
         <FormSearch onChange={filterList} />
-        <ContactsList
-          contacts={contacts}
-          onDeleteItem={deleteItem}
-        />
+        <ContactsList contacts={contacts} onDeleteItem={deleteItem} />
       </div>
     </React.Fragment>
   );
@@ -122,7 +126,6 @@ function App() {
 //       contacts: prevstate.contacts.filter(contact => contact.id !== idItem),
 //     }));
 //   };
-  
 
 //   render() {
 //     return (
