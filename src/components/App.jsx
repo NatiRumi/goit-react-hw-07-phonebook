@@ -7,14 +7,9 @@ import ContactsList from './ContactsList/ContactsList';
 import css from './Form/Form.module.css';
 
 function App() {
-  const [contacts, setContacts] = useState([]);
-
-  useEffect(() => {
-    const localData = localStorage.getItem('contacts');
-    if (localData) {
-      setContacts(JSON.parse(localData));
-    }
-  }, []);
+  const [contacts, setContacts] = useState(
+    JSON.parse(localStorage.getItem('contacts')) ?? []
+  );
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
