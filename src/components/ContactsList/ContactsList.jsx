@@ -1,9 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { getContacts } from 'redux/Slice';
 import ContactItem from '../ContactsItem/ContactsItem';
-import PropTypes from 'prop-types';
 import css from './ContactsList.module.css';
 
-const ContactsList = ({ contacts, onDeleteItem }) => {
+const ContactsList = () => {
+  const contacts = useSelector(getContacts);
+
   return (
     <div className={css.contacts}>
       <ul className={css.contactList}>
@@ -13,7 +16,6 @@ const ContactsList = ({ contacts, onDeleteItem }) => {
             number={contact.number}
             id={contact.id}
             key={contact.id}
-            onDeleteItem={onDeleteItem}
           />
         ))}
       </ul>
@@ -22,8 +24,3 @@ const ContactsList = ({ contacts, onDeleteItem }) => {
 };
 
 export default ContactsList;
-
-ContactsList.propTypes = {
-  contacts: PropTypes.array,
-  onDeleteItem: PropTypes.func,
-};

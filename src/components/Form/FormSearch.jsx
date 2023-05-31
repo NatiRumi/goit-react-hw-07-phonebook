@@ -1,15 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { filterContact } from 'redux/Slice';
 import css from './Form.module.css';
 
-const FormSearch = ({ onChange }) => {
+const FormSearch = () => {
+  const dispatch = useDispatch();
+
   return (
     <label className={css.formSearch}>
       Find contacts by name
       <input
         type="text"
         name="filter"
-        onChange={e => onChange(e.currentTarget.value)}
+        onChange={e => dispatch(filterContact(e.currentTarget.value))}
         className={css.inputFormSearch}
       />
     </label>
@@ -17,7 +20,3 @@ const FormSearch = ({ onChange }) => {
 };
 
 export default FormSearch;
-
-FormSearch.propTypes = {
-  onChange: PropTypes.func,
-};
