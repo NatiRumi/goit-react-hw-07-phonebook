@@ -8,7 +8,12 @@
 .form {
   display: flex;
   flex-direction: column;
+  max-width: 300px;
   margin-bottom: 80px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 20px;
+  align-items: end;
 }
 
 .form label {
@@ -16,9 +21,9 @@
 }
 
 .formBtn {
-  width: 120px;
+  width: 150px;
   margin-left: auto;
-  margin-right: auto;
+  
 }
 
 .formSearch {
