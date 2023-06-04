@@ -52,7 +52,7 @@ export const addNewContact = createAsyncThunk(
       if (responce.status !== 200) {
         throw new Error('Can not add contact. Server error');
       } 
-      // console.log(responce.data)
+      console.log(responce.data)
       dispatch(addContact(responce.data)) 
     } 
     catch (error) {
