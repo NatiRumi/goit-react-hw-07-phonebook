@@ -119,6 +119,7 @@ const contactSlice = createSlice({
 
     [fetchContacts.rejected]: setError,
     [deleteContacts.rejected]: setError,
+    [addNewContact.rejected]: setError,
   },
 });
 
@@ -127,4 +128,6 @@ export const { addContact, filterContact, removeContact } =
 export default contactSlice.reducer;
 
 // Selectors
-export const getContacts = state => state.contacts.contacts;
+// export const getContacts = state => state.contacts;
+ export const getContacts = state => state.contacts.contacts;
+ 
