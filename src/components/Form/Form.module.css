@@ -13,7 +13,7 @@
   margin-left: auto;
   margin-right: auto;
   padding-right: 20px;
-  align-items: end;
+  align-items: flex-end;
 }
 
 .form label {
