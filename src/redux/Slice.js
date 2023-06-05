@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-// import { nanoid } from 'nanoid';
 import axios from 'axios';
 
 export const fetchContacts = createAsyncThunk(
@@ -13,7 +12,6 @@ export const fetchContacts = createAsyncThunk(
       if (responce.status !== 200) {
         throw new Error('Status error');
       }
-
       return responce.data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -28,7 +26,7 @@ export const deleteContacts = createAsyncThunk(
       const responce = await axios.delete(
         `https://6479da19a455e257fa63e723.mockapi.io/contacts/${id}`
       );
-      // console.log(responce);
+
       if (responce.status !== 200) {
         throw new Error('Can not delete contact. Server error');
       }
@@ -41,21 +39,32 @@ export const deleteContacts = createAsyncThunk(
 
 export const addNewContact = createAsyncThunk(
   'contacts/addContacts',
-  async function (contact, { rejectWithValue, dispatch }) {
+  async function (contact, { rejectWithValue, dispatch, getState }) {
     try {
       const item = {
         name: contact.name,
         phone: contact.number,
       };
-      
-      const responce = await axios.post(`https://6479da19a455e257fa63e723.mockapi.io/contacts`, item);
-      if (responce.status !== 200) {
-        throw new Error('Can not add contact. Server error');
-      } 
-      console.log(responce.data)
-      dispatch(addContact(responce.data)) 
-    } 
-    catch (error) {
+
+      const currentState = getState();
+      const searchArray = currentState.contacts.contacts.filter(
+        contact => contact.name.toLowerCase() === item.name
+      );
+
+      if (searchArray.length !== 0) {
+        alert(`${item.name} is already in contacts`);
+        return;
+      } else {
+        const responce = await axios.post(
+          `https://6479da19a455e257fa63e723.mockapi.io/contacts`,
+          item
+        );
+        if (responce.statusText !== 'Created') {
+          throw new Error('Can not add contact. Server error');
+        }
+        dispatch(addContact(responce.data));
+      }
+    } catch (error) {
       return rejectWithValue(error.message);
     }
   }
@@ -75,22 +84,7 @@ const contactSlice = createSlice({
   },
   reducers: {
     addContact(state, action) {
-      state.contacts.push(action.payload)
-
-      // const searchArray = state.contacts.filter(
-      //   contact => contact.name.toLowerCase() === action.payload.name
-      // );
-      // if (searchArray.length !== 0) {
-      //   alert(`${action.payload.name} is already in contacts`);
-      //   return;
-      // } else {
-      //   state.contacts.push({
-      //     id: nanoid(),
-      //     name: action.payload.name,
-      //     number: action.payload.number,
-      //   });
-      //   state.contacts.push(action.payload)
-      // }
+      state.contacts.push(action.payload);
     },
 
     filterContact(state, action) {
@@ -128,6 +122,4 @@ export const { addContact, filterContact, removeContact } =
 export default contactSlice.reducer;
 
 // Selectors
-// export const getContacts = state => state.contacts;
- export const getContacts = state => state.contacts.contacts;
- 
+export const getContacts = state => state.contacts.contacts;
